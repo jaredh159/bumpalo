@@ -167,3 +167,13 @@ fn test_vec_write() {
 
     assert_eq!(v, &[1, 2, 3]);
 }
+
+#[cfg(feature = "serde")]
+#[test]
+fn test_vec_serializes() {
+    let bump = Bump::new();
+    let mut vec = Vec::new_in(&bump);
+    vec.push("hello");
+    vec.push("world");
+    assert_eq!(serde_json::to_string(&vec).unwrap(), r#"["hello","world"]"#);
+}

@@ -31,6 +31,7 @@ path = "tests/try_alloc.rs"
 harness = false
 
 [dependencies]
+serde = { version = "1.0.197", optional = true }
 # This dependency provides a version of the unstable nightly Rust `Allocator`
 # trait on stable Rust. Enabling this feature means that `bumpalo` will
 # implement its `Allocator` trait.
@@ -40,6 +41,7 @@ allocator-api2 = { version = "0.2.8", default-features = false, optional = true 
 quickcheck = "1.0.3"
 criterion = "0.3.6"
 rand = "0.8.5"
+serde_json = "1.0.115"
 
 [features]
 default = []
@@ -47,6 +49,7 @@ collections = []
 boxed = []
 allocator_api = []
 std = []
+serde = ["dep:serde"]
 
 # [profile.bench]
 # debug = true

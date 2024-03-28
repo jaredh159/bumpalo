@@ -2150,3 +2150,16 @@ impl<'a, 'bump> DoubleEndedIterator for Drain<'a, 'bump> {
 }
 
 impl<'a, 'bump> FusedIterator for Drain<'a, 'bump> {}
+
+#[cfg(feature = "serde")]
+use serde::{ser::SerializeSeq, Serialize, Serializer};
+
+#[cfg(feature = "serde")]
+impl<'a> Serialize for String<'a> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(self)
+    }
+}

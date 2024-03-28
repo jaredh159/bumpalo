@@ -34,3 +34,12 @@ fn push_str() {
     assert_eq!(s.len(), 4009);
     assert_eq!(&s[s.len() - 5..], "xxghi");
 }
+
+#[cfg(feature = "serde")]
+#[test]
+fn test_string_serializes() {
+    let bump = Bump::new();
+    let mut string = String::new_in(&bump);
+    string.push_str("hello");
+    assert_eq!(serde_json::to_string(&string).unwrap(), r#""hello""#);
+}
